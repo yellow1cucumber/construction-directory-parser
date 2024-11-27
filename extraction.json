@@ -1,0 +1,590 @@
+{
+    "root_url": "https://perekos.net",
+    "categories": [
+        {
+            "name": "Технология строительных процессов",
+            "url": "https://perekos.net/sections/view/62",
+            "subcategories": [
+                {
+                    "name": "Бетонные и железобетонные работы",
+                    "url": "https://perekos.net/sections/view/68",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Буровзрывные и свайные работы",
+                    "url": "https://perekos.net/sections/view/65",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Каменные работы в строительстве",
+                    "url": "https://perekos.net/sections/view/109",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Монтаж деревянных конструкций",
+                    "url": "https://perekos.net/sections/view/105",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Монтажные работы в строительстве",
+                    "url": "https://perekos.net/sections/view/67",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Отделочные работы",
+                    "url": "https://perekos.net/sections/view/66",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Реконструкция зданий и сооружений",
+                    "url": "https://perekos.net/sections/view/63",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Теплогазоснабжение, вентиляция и водоотведение",
+                    "url": "https://perekos.net/sections/view/159",
+                    "subcategories": [
+                        {
+                            "name": "Водоснабжение и водоотведение в строительстве",
+                            "url": "https://perekos.net/sections/view/240",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Теплогазоснабжение и вентиляция в строительстве",
+                            "url": "https://perekos.net/sections/view/241",
+                            "subcategories": [],
+                            "articles": []
+                        }
+                    ],
+                    "articles": []
+                },
+                {
+                    "name": "Земляные работы в строительстве",
+                    "url": "https://perekos.net/sections/view/69",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Кровельные работы",
+                    "url": "https://perekos.net/sections/view/64",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Монолитное домостроение",
+                    "url": "https://perekos.net/sections/view/441",
+                    "subcategories": [],
+                    "articles": [
+                        {
+                            "title": "История развития монолитного строительства",
+                            "url": "https://perekos.net/pages/view/1285"
+                        },
+                        {
+                            "title": "Конструктивные системы и конструкции монолитных зданий",
+                            "url": "https://perekos.net/pages/view/1286"
+                        },
+                        {
+                            "title": "Опалубка. Классификация, области применения и конструкции",
+                            "url": "https://perekos.net/pages/view/1287"
+                        },
+                        {
+                            "title": "Арматурные работы",
+                            "url": "https://perekos.net/pages/view/1288"
+                        },
+                        {
+                            "title": "Бетонные смеси: приготовление, транспортирование и укладка",
+                            "url": "https://perekos.net/pages/view/1289"
+                        },
+                        {
+                            "title": "Уход за бетоном. Исправление дефектов бетонирования",
+                            "url": "https://perekos.net/pages/view/1290"
+                        },
+                        {
+                            "title": "Специальные методы бетонирования",
+                            "url": "https://perekos.net/pages/view/1291"
+                        },
+                        {
+                            "title": "Технология и организация возведения монолитных зданий и сооружений",
+                            "url": "https://perekos.net/pages/view/1292"
+                        },
+                        {
+                            "title": "Контроль качества бетонных работ",
+                            "url": "https://perekos.net/pages/view/1293"
+                        },
+                        {
+                            "title": "Техника безопасности при производстве бетонных работ",
+                            "url": "https://perekos.net/pages/view/1294"
+                        }
+                    ]
+                },
+                {
+                    "name": "Изоляция строительных конструкций",
+                    "url": "https://perekos.net/sections/view/116",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Охрана труда в строительстве",
+                    "url": "https://perekos.net/sections/view/148",
+                    "subcategories": [],
+                    "articles": [
+                        {
+                            "title": "Аккредитация организаций, оказывающих услуги в области охраны труда",
+                            "url": "https://perekos.net/pages/view/555"
+                        },
+                        {
+                            "title": "Реестр аккредитованных организаций, оказывающих услуги в области охраны труда",
+                            "url": "https://perekos.net/pages/view/556"
+                        },
+                        {
+                            "title": "Алгоритм расследования несчастных случаев на производстве",
+                            "url": "https://perekos.net/pages/view/557"
+                        },
+                        {
+                            "title": "Анализ состояния травматизма на производстве",
+                            "url": "https://perekos.net/pages/view/558"
+                        },
+                        {
+                            "title": "Проведение проверок государственными органами правопорядка",
+                            "url": "https://perekos.net/pages/view/559"
+                        },
+                        {
+                            "title": "Инструктаж, обучение и проверка знаний работников, специалистов и руководителей организаций по охране труда",
+                            "url": "https://perekos.net/pages/view/560"
+                        }
+                    ]
+                },
+                {
+                    "name": "Инженерная геология в строительстве",
+                    "url": "https://perekos.net/sections/view/275",
+                    "subcategories": [],
+                    "articles": [
+                        {
+                            "title": "Минералы и горные породы",
+                            "url": "https://perekos.net/pages/view/563"
+                        },
+                        {
+                            "title": "Инженерно-геологические свойства горных пород",
+                            "url": "https://perekos.net/pages/view/564"
+                        },
+                        {
+                            "title": "Экзогенные и эндогенные геодинамические процессы",
+                            "url": "https://perekos.net/pages/view/565"
+                        }
+                    ]
+                }
+            ],
+            "articles": []
+        },
+        {
+            "name": "Проектирование строительных конструкций",
+            "url": "https://perekos.net/sections/view/138",
+            "subcategories": [
+                {
+                    "name": "Общие вопросы строительного проектирования",
+                    "url": "https://perekos.net/sections/view/299",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Расчет строительных конструкций",
+                    "url": "https://perekos.net/sections/view/298",
+                    "subcategories": [],
+                    "articles": [
+                        {
+                            "title": "1. Соотношения единиц физических величин",
+                            "url": "https://perekos.net/pages/view/791"
+                        },
+                        {
+                            "title": "2. Нагрузки и воздействия",
+                            "url": "https://perekos.net/pages/view/792"
+                        },
+                        {
+                            "title": "3. Группы режимов работы кранов",
+                            "url": "https://perekos.net/pages/view/793"
+                        },
+                        {
+                            "title": "4. Карты районирования территории по климатическим характеристикам",
+                            "url": "https://perekos.net/pages/view/794"
+                        },
+                        {
+                            "title": "5. Основные формулы сопротивления материалов. Осевое растяжение и сжатие",
+                            "url": "https://perekos.net/pages/view/795"
+                        },
+                        {
+                            "title": "6. Растяжение-сжатие по двум направлениям",
+                            "url": "https://perekos.net/pages/view/796"
+                        },
+                        {
+                            "title": "7. Моменты инерции плоских фигур",
+                            "url": "https://perekos.net/pages/view/797"
+                        },
+                        {
+                            "title": "8. Определение напряжений при изгибе прямого бруса",
+                            "url": "https://perekos.net/pages/view/798"
+                        },
+                        {
+                            "title": "9. Упругая линия бруса",
+                            "url": "https://perekos.net/pages/view/799"
+                        },
+                        {
+                            "title": "10. Внецентренное сжатие и растяжение. Ядро сечения",
+                            "url": "https://perekos.net/pages/view/800"
+                        },
+                        {
+                            "title": "11. Косой изгиб и косое внецентренное сжатие (растяжение)",
+                            "url": "https://perekos.net/pages/view/801"
+                        },
+                        {
+                            "title": "12. Продольный изгиб",
+                            "url": "https://perekos.net/pages/view/802"
+                        },
+                        {
+                            "title": "13. Балка на упругом основании",
+                            "url": "https://perekos.net/pages/view/803"
+                        }
+                    ]
+                },
+                {
+                    "name": "Определение внутренних усилий строительных конструкций",
+                    "url": "https://perekos.net/sections/view/303",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Проектирование оснований и фундаментов",
+                    "url": "https://perekos.net/sections/view/304",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Проектирование бетонных и железобетонных конструкций",
+                    "url": "https://perekos.net/sections/view/305",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Проектирование металлических конструкций",
+                    "url": "https://perekos.net/sections/view/306",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Проектирование деревянных конструкций",
+                    "url": "https://perekos.net/sections/view/307",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Проектирование пластиковых конструкций",
+                    "url": "https://perekos.net/sections/view/308",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Теплотехнический расчет ограждающих конструкций",
+                    "url": "https://perekos.net/sections/view/310",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Акустический расчет ограждающих конструкций",
+                    "url": "https://perekos.net/sections/view/311",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Проектирование инженерных систем",
+                    "url": "https://perekos.net/sections/view/312",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Проектирование каменных и армокаменных конструкций",
+                    "url": "https://perekos.net/sections/view/336",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Тепловая защита зданий",
+                    "url": "https://perekos.net/sections/view/460",
+                    "subcategories": [],
+                    "articles": [
+                        {
+                            "title": "Принципы теплозащиты зданий",
+                            "url": "https://perekos.net/pages/view/1478"
+                        },
+                        {
+                            "title": "Сопротивление теплопередаче элементов ограждающих конструкций",
+                            "url": "https://perekos.net/pages/view/1479"
+                        },
+                        {
+                            "title": "Проектирование и технологии тепловой защиты зданий",
+                            "url": "https://perekos.net/pages/view/1480"
+                        }
+                    ]
+                }
+            ],
+            "articles": []
+        },
+        {
+            "name": "Строительные материалы",
+            "url": "https://perekos.net/sections/view/4",
+            "subcategories": [
+                {
+                    "name": "Акустические материалы",
+                    "url": "https://perekos.net/sections/view/60",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Бетоны",
+                    "url": "https://perekos.net/sections/view/53",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Изоляционные материалы",
+                    "url": "https://perekos.net/sections/view/50",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Керамические материалы",
+                    "url": "https://perekos.net/sections/view/55",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Лесные материалы",
+                    "url": "https://perekos.net/sections/view/57",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Металлические материалы",
+                    "url": "https://perekos.net/sections/view/54",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Отделочные материалы",
+                    "url": "https://perekos.net/sections/view/51",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Полимерные материалы в строительстве",
+                    "url": "https://perekos.net/sections/view/59",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Природные каменные материалы в строительстве",
+                    "url": "https://perekos.net/sections/view/61",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Стекло в строительстве",
+                    "url": "https://perekos.net/sections/view/52",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Строительные растворы",
+                    "url": "https://perekos.net/sections/view/56",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Теплоизоляционные материалы в строительстве",
+                    "url": "https://perekos.net/sections/view/58",
+                    "subcategories": [],
+                    "articles": []
+                }
+            ],
+            "articles": []
+        },
+        {
+            "name": "Архитектура гражданских и промышленных зданий",
+            "url": "https://perekos.net/sections/view/6",
+            "subcategories": [
+                {
+                    "name": "Архитектура промышленных зданий",
+                    "url": "https://perekos.net/sections/view/440",
+                    "subcategories": [],
+                    "articles": [
+                        {
+                            "title": "Классификация промышленных зданий",
+                            "url": "https://perekos.net/pages/view/1303"
+                        },
+                        {
+                            "title": "Типизация и унификация промышленных зданий",
+                            "url": "https://perekos.net/pages/view/1304"
+                        },
+                        {
+                            "title": "Привязка конструктивных элементов зданий к разбивочным осям",
+                            "url": "https://perekos.net/pages/view/1305"
+                        },
+                        {
+                            "title": "Объемно-планировочные решения промышленных зданий",
+                            "url": "https://perekos.net/pages/view/1306"
+                        },
+                        {
+                            "title": "Конструктивные решения промышленных зданий",
+                            "url": "https://perekos.net/pages/view/1312"
+                        },
+                        {
+                            "title": "Фундаменты промышленных зданий",
+                            "url": "https://perekos.net/pages/view/1313"
+                        },
+                        {
+                            "title": "Железобетонные колонны в промышленных зданиях",
+                            "url": "https://perekos.net/pages/view/1314"
+                        },
+                        {
+                            "title": "Стальные колонны в промышленных зданиях",
+                            "url": "https://perekos.net/pages/view/1315"
+                        },
+                        {
+                            "title": "Колонны фахверков",
+                            "url": "https://perekos.net/pages/view/1316"
+                        },
+                        {
+                            "title": "Связи по колоннам в промышленных зданиях",
+                            "url": "https://perekos.net/pages/view/1317"
+                        },
+                        {
+                            "title": "Подкрановые балки в промышленных зданиях",
+                            "url": "https://perekos.net/pages/view/1318"
+                        },
+                        {
+                            "title": "Несущие конструкции покрытия в промышленных зданиях",
+                            "url": "https://perekos.net/pages/view/1319"
+                        },
+                        {
+                            "title": "Связи в покрытиях промышленных зданиях",
+                            "url": "https://perekos.net/pages/view/1320"
+                        },
+                        {
+                            "title": "Фонари промышленных зданий",
+                            "url": "https://perekos.net/pages/view/1321"
+                        },
+                        {
+                            "title": "Ограждающие конструкции покрытий промышленных зданий",
+                            "url": "https://perekos.net/pages/view/1325"
+                        },
+                        {
+                            "title": "Стены промышленных зданий",
+                            "url": "https://perekos.net/pages/view/1326"
+                        },
+                        {
+                            "title": "Планировка промышленного здания",
+                            "url": "https://perekos.net/pages/view/1327"
+                        }
+                    ]
+                },
+                {
+                    "name": "Гражданские здания. Понятие о зданиях и их классификация",
+                    "url": "https://perekos.net/sections/view/419",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Фундаменты",
+                    "url": "https://perekos.net/sections/view/418",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Основание под фундамент",
+                    "url": "https://perekos.net/sections/view/420",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Стены",
+                    "url": "https://perekos.net/sections/view/421",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Перекрытия",
+                    "url": "https://perekos.net/sections/view/422",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Полы",
+                    "url": "https://perekos.net/sections/view/423",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Крыши",
+                    "url": "https://perekos.net/sections/view/424",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Перегородки",
+                    "url": "https://perekos.net/sections/view/425",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Двери и окна",
+                    "url": "https://perekos.net/sections/view/426",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Лестницы",
+                    "url": "https://perekos.net/sections/view/427",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Крупноблочные здания",
+                    "url": "https://perekos.net/sections/view/413",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Крупнопанельные здания",
+                    "url": "https://perekos.net/sections/view/414",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Здания из сборных блоков",
+                    "url": "https://perekos.net/sections/view/415",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Конструкции зданий монолитной и сборно-монолитной строительных систем",
+                    "url": "https://perekos.net/sections/view/416",
+                    "subcategories": [],
+                    "articles": []
+                },
+                {
+                    "name": "Большепролетные покрытия",
+                    "url": "https://perekos.net/sections/view/417",
+                    "subcategories": [],
+                    "articles": []
+                }
+            ],
+            "articles": []
+        }
+    ]
+}
