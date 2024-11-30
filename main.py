@@ -120,7 +120,7 @@ if __name__ == '__main__':
             })
 
         try:
-            parser = ContentParser(page.url, 'div.page_text')
+            parser = ContentParser(page.url, state.pages_content_container_selector)
             result = parser.parse()
             return jsonify(result), 200
 
