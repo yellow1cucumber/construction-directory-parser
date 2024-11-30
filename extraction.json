@@ -38,7 +38,26 @@
                 {
                     "name": "Отделочные работы",
                     "url": "https://perekos.net/sections/view/66",
-                    "subcategories": [],
+                    "subcategories": [
+                        {
+                            "name": "Малярные, обойные и стекольные работы",
+                            "url": "https://perekos.net/sections/view/107",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Облицовочные и штукатурные работы",
+                            "url": "https://perekos.net/sections/view/106",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Устройство напольных покрытий",
+                            "url": "https://perekos.net/sections/view/108",
+                            "subcategories": [],
+                            "articles": []
+                        }
+                    ],
                     "articles": []
                 },
                 {
@@ -191,7 +210,68 @@
                 {
                     "name": "Общие вопросы строительного проектирования",
                     "url": "https://perekos.net/sections/view/299",
-                    "subcategories": [],
+                    "subcategories": [
+                        {
+                            "name": "Состав разделов проектной документации",
+                            "url": "https://perekos.net/sections/view/428",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Требования энергетической эффективности при проектировании зданий",
+                            "url": "https://perekos.net/sections/view/429",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Полномочия федеральных органов исполнительной власти в области энергосбережения",
+                            "url": "https://perekos.net/sections/view/430",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Требования промышленной безопасности к проектированию и строительству",
+                            "url": "https://perekos.net/sections/view/431",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Требования пожарной безопасности при проектировании зданий",
+                            "url": "https://perekos.net/sections/view/432",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Требования экологической безопасности при проектировании зданий",
+                            "url": "https://perekos.net/sections/view/433",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Требования доступности для маломобильных групп населения при проектировании зданий",
+                            "url": "https://perekos.net/sections/view/434",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Специальные технические условия на объектах капитального строительства",
+                            "url": "https://perekos.net/sections/view/435",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Экспертиза проектной документации",
+                            "url": "https://perekos.net/sections/view/436",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Средства автоматизации проектных работ (САПР)",
+                            "url": "https://perekos.net/sections/view/438",
+                            "subcategories": [],
+                            "articles": []
+                        }
+                    ],
                     "articles": []
                 },
                 {
@@ -256,31 +336,354 @@
                 {
                     "name": "Определение внутренних усилий строительных конструкций",
                     "url": "https://perekos.net/sections/view/303",
-                    "subcategories": [],
+                    "subcategories": [
+                        {
+                            "name": "Определение внутренних усилий и деформаций строительных конструкций",
+                            "url": "https://perekos.net/sections/view/370",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет балок",
+                            "url": "https://perekos.net/sections/view/371",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет многопролетных неразрезных балок и плит при упругой работе",
+                            "url": "https://perekos.net/sections/view/372",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет двускатных стропильных балок",
+                            "url": "https://perekos.net/sections/view/373",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет двухветвевых колонн",
+                            "url": "https://perekos.net/sections/view/374",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Приближенный расчет рам многоэтажных каркасных зданий",
+                            "url": "https://perekos.net/sections/view/375",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет ферм",
+                            "url": "https://perekos.net/sections/view/376",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Графический метод определения усилий в стержнях плоских ферм (диаграмма Максвелла-Кремоны)",
+                            "url": "https://perekos.net/sections/view/377",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет арок",
+                            "url": "https://perekos.net/sections/view/378",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Инженерная теория расчета многогранных куполов",
+                            "url": "https://perekos.net/sections/view/379",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет сферической оболочки на устойчивость под равномерным внешним давлением",
+                            "url": "https://perekos.net/sections/view/380",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Металлические большепролетные покрытия зданий",
+                            "url": "https://perekos.net/sections/view/381",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Практический метод расчета структурной конструкции двухпоясного купола",
+                            "url": "https://perekos.net/sections/view/382",
+                            "subcategories": [],
+                            "articles": []
+                        }
+                    ],
                     "articles": []
                 },
                 {
                     "name": "Проектирование оснований и фундаментов",
                     "url": "https://perekos.net/sections/view/304",
-                    "subcategories": [],
+                    "subcategories": [
+                        {
+                            "name": "Проектирование оснований под фундамент",
+                            "url": "https://perekos.net/sections/view/362",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет осадки основания фундамента",
+                            "url": "https://perekos.net/sections/view/364",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет фундаментов мелкого заложения",
+                            "url": "https://perekos.net/sections/view/363",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет ленточных фундаментов под стены здания с подвалом",
+                            "url": "https://perekos.net/sections/view/365",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет свайных фундаментов",
+                            "url": "https://perekos.net/sections/view/366",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет железобетонных фундаментов под металлическую колонну",
+                            "url": "https://perekos.net/sections/view/367",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет столбчатых фундаментов стаканного типа под сборную железобетонную колонну",
+                            "url": "https://perekos.net/sections/view/368",
+                            "subcategories": [],
+                            "articles": []
+                        }
+                    ],
                     "articles": []
                 },
                 {
                     "name": "Проектирование бетонных и железобетонных конструкций",
                     "url": "https://perekos.net/sections/view/305",
-                    "subcategories": [],
+                    "subcategories": [
+                        {
+                            "name": "Железобетон. Общие сведения",
+                            "url": "https://perekos.net/sections/view/349",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Классификация бетонов",
+                            "url": "https://perekos.net/sections/view/350",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Классификация арматуры",
+                            "url": "https://perekos.net/sections/view/351",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Классы и марки бетона",
+                            "url": "https://perekos.net/sections/view/352",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Классы и марки арматуры",
+                            "url": "https://perekos.net/sections/view/353",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Соединения арматуры",
+                            "url": "https://perekos.net/sections/view/354",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Способы и методы натяжения арматуры",
+                            "url": "https://perekos.net/sections/view/355",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Показатели прочности и деформативности бетона",
+                            "url": "https://perekos.net/sections/view/356",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Показатели прочности и деформативности арматуры",
+                            "url": "https://perekos.net/sections/view/357",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Метод расчета железобетонных конструкций по предельным состояниям",
+                            "url": "https://perekos.net/sections/view/358",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет элементов железобетонных конструкций по предельным состояниям первой группы",
+                            "url": "https://perekos.net/sections/view/359",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет элементов железобетонных конструкций по предельным состояниям второй группы",
+                            "url": "https://perekos.net/sections/view/360",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет бетонных элементов по прочности",
+                            "url": "https://perekos.net/sections/view/361",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Предварительно напряженные железобетонные конструкции",
+                            "url": "https://perekos.net/sections/view/345",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет элементов предварительно напряженных железобетонных конструкций по предельным состояниям первой группы",
+                            "url": "https://perekos.net/sections/view/346",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет предварительно напряженных элементов железобетонных конструкций по предельным состояниям второй группы",
+                            "url": "https://perekos.net/sections/view/347",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Конструктивные требования при проектировании предварительно напряженных железобетонных конструкций",
+                            "url": "https://perekos.net/sections/view/348",
+                            "subcategories": [],
+                            "articles": []
+                        }
+                    ],
                     "articles": []
                 },
                 {
                     "name": "Проектирование металлических конструкций",
                     "url": "https://perekos.net/sections/view/306",
-                    "subcategories": [],
+                    "subcategories": [
+                        {
+                            "name": "Металлические конструкции. Общие сведения",
+                            "url": "https://perekos.net/sections/view/327",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Строительные стали",
+                            "url": "https://perekos.net/sections/view/328",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Сортамент металлоконструкций",
+                            "url": "https://perekos.net/sections/view/329",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Соединения элементов металлических конструкций",
+                            "url": "https://perekos.net/sections/view/326",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Основные положения расчета стальных конструкций",
+                            "url": "https://perekos.net/sections/view/330",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет элементов стальных конструкций при центральном растяжении и сжатии",
+                            "url": "https://perekos.net/sections/view/331",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Проектирование стальных конструкций с учетом предотвращения хрупкого разрушения",
+                            "url": "https://perekos.net/sections/view/335",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет элементов стальных конструкций при действии продольной силы с изгибом",
+                            "url": "https://perekos.net/sections/view/333",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет элементов стальных конструкций на усталость",
+                            "url": "https://perekos.net/sections/view/334",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет элементов стальных конструкций при изгибе",
+                            "url": "https://perekos.net/sections/view/332",
+                            "subcategories": [],
+                            "articles": []
+                        }
+                    ],
                     "articles": []
                 },
                 {
                     "name": "Проектирование деревянных конструкций",
                     "url": "https://perekos.net/sections/view/307",
-                    "subcategories": [],
+                    "subcategories": [
+                        {
+                            "name": "Общие сведения о деревянных конструкциях",
+                            "url": "https://perekos.net/sections/view/313",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет деревянных конструкций",
+                            "url": "https://perekos.net/sections/view/314",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Соединения элементов деревянных конструкций",
+                            "url": "https://perekos.net/sections/view/315",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Несущие деревянные конструкции покрытий",
+                            "url": "https://perekos.net/sections/view/316",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Проектирование элементов деревянных конструкций",
+                            "url": "https://perekos.net/sections/view/317",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Ремонт и усиление деревянных конструкций",
+                            "url": "https://perekos.net/sections/view/318",
+                            "subcategories": [],
+                            "articles": []
+                        }
+                    ],
                     "articles": []
                 },
                 {
@@ -304,13 +707,99 @@
                 {
                     "name": "Проектирование инженерных систем",
                     "url": "https://perekos.net/sections/view/312",
-                    "subcategories": [],
+                    "subcategories": [
+                        {
+                            "name": "Проектирование системы отопления",
+                            "url": "https://perekos.net/sections/view/320",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Проектирование систем водоснабжения",
+                            "url": "https://perekos.net/sections/view/322",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Проектирование систем газоснабжения",
+                            "url": "https://perekos.net/sections/view/321",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Проектирование систем канализации",
+                            "url": "https://perekos.net/sections/view/323",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Проектирование систем вентиляции и кондиционирования",
+                            "url": "https://perekos.net/sections/view/324",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Проектирование систем освещения",
+                            "url": "https://perekos.net/sections/view/325",
+                            "subcategories": [],
+                            "articles": []
+                        }
+                    ],
                     "articles": []
                 },
                 {
                     "name": "Проектирование каменных и армокаменных конструкций",
                     "url": "https://perekos.net/sections/view/336",
-                    "subcategories": [],
+                    "subcategories": [
+                        {
+                            "name": "Каменные и армокаменные конструкции. Общие сведения",
+                            "url": "https://perekos.net/sections/view/337",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Конструктивные требования к армированной кладке",
+                            "url": "https://perekos.net/sections/view/338",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Проектирование каменных конструкций",
+                            "url": "https://perekos.net/sections/view/339",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет каменной кладки по предельным состояниям первой группы",
+                            "url": "https://perekos.net/sections/view/340",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчет каменной кладки по предельным состояниям второй группы",
+                            "url": "https://perekos.net/sections/view/341",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Расчетные сопротивления каменной кладки",
+                            "url": "https://perekos.net/sections/view/342",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Упругие характеристики каменной кладки",
+                            "url": "https://perekos.net/sections/view/343",
+                            "subcategories": [],
+                            "articles": []
+                        },
+                        {
+                            "name": "Требования к рабочим чертежам каменных и армокаменных конструкций",
+                            "url": "https://perekos.net/sections/view/344",
+                            "subcategories": [],
+                            "articles": []
+                        }
+                    ],
                     "articles": []
                 },
                 {
@@ -384,7 +873,14 @@
                 {
                     "name": "Полимерные материалы в строительстве",
                     "url": "https://perekos.net/sections/view/59",
-                    "subcategories": [],
+                    "subcategories": [
+                        {
+                            "name": "Сотовый поликарбонат разновидности, характеристики область применения",
+                            "url": "https://perekos.net/sections/view/458",
+                            "subcategories": [],
+                            "articles": []
+                        }
+                    ],
                     "articles": []
                 },
                 {

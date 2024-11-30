@@ -1,5 +1,4 @@
 import json
-from dataclasses import replace
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -9,9 +8,7 @@ from core.extraction.sitemap import SiteMap
 from core.extraction.sitemapExtractor import ExtractorOptions
 from core.parsing.articleProcessor import ArticleProcessor
 from serialization.json_provider import CustomJSONProvider
-
 from server.state import ServerState
-
 from utils.sitemap_loading import (import_sitemap_from_json_file,
                                    request_sitemap_and_export)
 from utils.sitemap_navigation import find_page_by_id
@@ -23,6 +20,7 @@ if __name__ == '__main__':
     CORS(app)
 
     state: ServerState = ServerState()
+
 
     @app.route('/sitemap/set_extractor_options', methods=['POST'])
     def set_extractor_options():
@@ -77,26 +75,20 @@ if __name__ == '__main__':
 
     @app.route('/sitemap/request_and_export', methods=['POST'])
     def request_and_export():
-        try:
-            options = state.extractor_options
-            if not options:
-                return jsonify({
-                    'error': 'Extractor options is not set'
-                }), 400
-
-            sitemap = request_sitemap_and_export(state.extractor_options,
-                                                 state.default_sitemap_export_file)
-            state.sitemap = sitemap
-            state.extraction_file = state.default_sitemap_export_file
-
-            return jsonify(
-                sitemap
-            ), 200
-
-        except Exception as e:
+        options = state.extractor_options
+        if not options:
             return jsonify({
-                'error': str(e)
-            }), 500
+                'error': 'Extractor options is not set'
+            }), 400
+
+        sitemap = request_sitemap_and_export(state.extractor_options,
+                                             state.default_sitemap_export_file)
+        state.sitemap = sitemap
+        state.extraction_file = state.default_sitemap_export_file
+
+        return jsonify(
+            sitemap
+        ), 200
 
 
     @app.route('/sitemap/get_sitemap')
@@ -148,8 +140,8 @@ if __name__ == '__main__':
             pages_extractor = ArticleProcessor(state.sitemap, state.pages_cache)
             pages_extractor.process(state.parsed_data_dir)
         except Exception as e:
-            jsonify({
-                'error': e
+            return jsonify({
+                'error': str(e)
             }), 500
 
         return jsonify({
@@ -178,5 +170,6 @@ if __name__ == '__main__':
             return jsonify({
                 'error': str(e)
             })
+
 
     app.run()

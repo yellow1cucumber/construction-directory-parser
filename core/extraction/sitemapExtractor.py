@@ -18,9 +18,9 @@ class ExtractorOptions(BaseModel):
     root_url: str  # Корневой URL для начала обхода
     excluded_urls: list[str]  # Список URL, которые нужно игнорировать
     category_tag: str  # HTML-тег для категорий
-    category_selector: str  # CSS-селектор для категорий
+    category_selectors: List[str]  # Список CSS-селекторов для категорий
     article_tag: str  # HTML-тег для статей
-    article_selector: str  # CSS-селектор для статей
+    article_selectors: List[str]  # Список CSS-селекторов для статей
 
 
 class SiteMapExtractor:
@@ -42,7 +42,7 @@ class SiteMapExtractor:
 
         excluded_urls = self.options.excluded_urls  # Ссылки, которые нужно игнорировать
         category_tag = self.options.category_tag
-        category_selector = self.options.category_selector
+        category_selectors = self.options.category_selectors
 
         # Выполняем запрос к странице
         response = requests.get(url)
@@ -51,27 +51,28 @@ class SiteMapExtractor:
         soup = BeautifulSoup(response.text, 'html.parser')  # Парсим HTML-страницу
         categories: list[Category] = []  # Список категорий
 
-        # Формируем CSS-селектор для поиска категорий
-        compiled_selector = f"{category_tag}.{category_selector}"
-        for category in soup.select(compiled_selector):
-            sub_url = urljoin(url, category['href'])  # Преобразуем относительные пути в абсолютные
+        # Перебираем все заданные селекторы для категорий
+        for selector in category_selectors:
+            compiled_selector = f"{category_tag}.{selector}"
+            for category in soup.select(compiled_selector):
+                sub_url = urljoin(url, category['href'])  # Преобразуем относительные пути в абсолютные
 
-            if sub_url in excluded_urls:
-                continue  # Пропускаем ссылки из списка исключений
+                if sub_url in excluded_urls:
+                    continue  # Пропускаем ссылки из списка исключений
 
-            name = category.text.strip()  # Извлекаем текст категории
-            articles = self.extract_articles(soup, sub_url)  # Извлекаем статьи для категории
+                name = category.text.strip()  # Извлекаем текст категории
+                articles = self.extract_articles(soup, sub_url)  # Извлекаем статьи для категории
 
-            # Создаём объект категории
-            parsed_category = Category(name=name, url=sub_url, subcategories=[])
+                # Создаём объект категории
+                parsed_category = Category(name=name, url=sub_url, subcategories=[], articles=[])
 
-            # Рекурсивно извлекаем подкатегории
-            subcategories = self.extract_categories_recursive(url=sub_url, parent=parsed_category, visited=visited)
-            parsed_category.subcategories = subcategories
+                # Рекурсивно извлекаем подкатегории
+                subcategories = self.extract_categories_recursive(url=sub_url, parent=parsed_category, visited=visited)
+                parsed_category.subcategories = subcategories
 
-            # Проверяем, добавлена ли уже такая категория
-            if not any(cat.url == sub_url for cat in categories):
-                categories.append(parsed_category)
+                # Проверяем, добавлена ли уже такая категория
+                if not any(cat.url == sub_url for cat in categories):
+                    categories.append(parsed_category)
 
         if not categories:  # Если категорий не найдено, извлекаем статьи
             articles = self.extract_articles(soup, url)
@@ -84,22 +85,23 @@ class SiteMapExtractor:
         Извлекает статьи с указанного URL.
         """
         article_tag = self.options.article_tag
-        article_selector = self.options.article_selector
-
-        selector = f"{article_tag}.{article_selector}"  # Формируем CSS-селектор
+        article_selectors = self.options.article_selectors
 
         articles = []
-        for article in soup.select(selector):
-            article_url = urljoin(url, article['href'])  # Преобразуем относительный путь в абсолютный
+        # Перебираем все заданные селекторы для статей
+        for selector in article_selectors:
+            compiled_selector = f"{article_tag}.{selector}"
+            for article in soup.select(compiled_selector):
+                article_url = urljoin(url, article['href'])  # Преобразуем относительный путь в абсолютный
 
-            if article_url in self.options.excluded_urls:
-                continue  # Пропускаем ссылки из списка исключений
+                if article_url in self.options.excluded_urls:
+                    continue  # Пропускаем ссылки из списка исключений
 
-            # Извлекаем заголовок статьи
-            article_title = article.select_one('.title').text.strip().replace('\n', ' ').replace('\r', '') \
-                if article.select_one('.title') else "Untitled"
+                # Извлекаем заголовок статьи
+                article_title = article.select_one('.title').text.strip().replace('\n', ' ').replace('\r', '') \
+                    if article.select_one('.title') else "Untitled"
 
-            articles.append(Article(title=article_title, url=article_url))
+                articles.append(Article(title=article_title, url=article_url))
         return articles
 
     def extract_site_map(self) -> SiteMap:

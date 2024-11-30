@@ -29,5 +29,3 @@ class Category(BaseModel):
                     self.subcategories.__len__() == other.subcategories.__len__() and
                     self.articles.__len__() == other.articles.__len__())
         return False
-
-    model_config = ConfigDict(frozen=True)

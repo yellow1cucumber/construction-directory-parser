@@ -15,5 +15,3 @@ class Article(BaseModel):
         if isinstance(other, Article):
             return self.title == other.title and self.url == other.url
         return False
-
-    model_config = ConfigDict(frozen=True)
