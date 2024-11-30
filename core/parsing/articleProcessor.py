@@ -6,14 +6,12 @@ from core.extraction.category import Category
 from core.extraction.sitemap import SiteMap
 from core.extraction.article import Article
 from core.parsing.content_parser import ContentParser
-from core.parsing.pages_cache import PagesCache
 
 
 class ArticleProcessor:
-    def __init__(self, site_map: SiteMap, cache: PagesCache):
+    def __init__(self, site_map: SiteMap):
         self.root_url = site_map.root_url
         self.categories = site_map.categories
-        self.pages_cache = cache
 
     def process(self, export_dir: str):
         export_path = Path(export_dir)
@@ -54,9 +52,6 @@ class ArticleProcessor:
 
         file_path = save_path / f"{article_title}.json"
         self.save_to_json(page_content, file_path)
-
-        # Сохраняем путь в POSIX-формате для кроссплатформенности
-        self.pages_cache.save(article, file_path.as_posix())
 
     def sanitize_filename(self, name: str) -> str:
         # Заменяем недопустимые символы на "_"

@@ -8,6 +8,7 @@ from pydantic import ValidationError
 from core.extraction.sitemap import SiteMap
 from core.extraction.sitemapExtractor import ExtractorOptions
 from core.parsing.articleProcessor import ArticleProcessor
+from core.parsing.content_parser import ContentParser
 from serialization.json_provider import CustomJSONProvider
 from server.state import ServerState
 from utils.sitemap_loading import (import_sitemap_from_json_file,
@@ -115,46 +116,18 @@ if __name__ == '__main__':
 
         if not page:
             return jsonify({
-                'error': 'Page not found'
-            }), 400
-
-        page_path = state.pages_cache.get_by_id(page_id)
-        pprint.pprint(state.pages_cache.cache)
-        pprint.pprint(page_path)
-
-        if page_path is None:
-            return jsonify({
-                'error': 'Page not found'
-            }), 404
-
-        if not page_path.exists():
-            return jsonify({
-                'error': 'File not found'
-            }), 404
-
-        with open(page_path, 'r', encoding='utf-8') as file:
-            page_content = json.load(file)
-        return jsonify(page_content), 200
-
-
-    @app.route('/parse/parse_pages_content', methods=['GET'])
-    def parse_pages_content():
-        if not state.sitemap:
-            return jsonify({
-                'error': 'Sitemap is not set'
-            }), 400
+                'error': f"There is no page with id == {page_id}"
+            })
 
         try:
-            pages_extractor = ArticleProcessor(state.sitemap, state.pages_cache)
-            pages_extractor.process(state.parsed_data_dir)
+            parser = ContentParser(page.url, 'div.page_text')
+            result = parser.parse()
+            return jsonify(result), 200
+
         except Exception as e:
             return jsonify({
                 'error': str(e)
             }), 500
-
-        return jsonify({
-            'message': 'Parsed successfully'
-        }), 200
 
 
     @app.route('/state/export_state')
