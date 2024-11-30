@@ -1,4 +1,5 @@
 import json
+import pprint
 
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -118,15 +119,22 @@ if __name__ == '__main__':
             }), 400
 
         page_path = state.pages_cache.get_by_id(page_id)
-        if page_path:
-            with open(page_path, 'r', encoding='utf-8') as file:
-                page_content = json.load(file)
-            return jsonify(page_content), 200
+        pprint.pprint(state.pages_cache.cache)
+        pprint.pprint(page_path)
 
-        else:
+        if page_path is None:
             return jsonify({
-                'error': 'No page content found. Run parser to fill cache'
-            })
+                'error': 'Page not found'
+            }), 404
+
+        if not page_path.exists():
+            return jsonify({
+                'error': 'File not found'
+            }), 404
+
+        with open(page_path, 'r', encoding='utf-8') as file:
+            page_content = json.load(file)
+        return jsonify(page_content), 200
 
 
     @app.route('/parse/parse_pages_content', methods=['GET'])
@@ -172,4 +180,8 @@ if __name__ == '__main__':
             })
 
 
-    app.run()
+    app.run(
+        host='0.0.0.0',
+        port=5000,
+        debug=True
+    )

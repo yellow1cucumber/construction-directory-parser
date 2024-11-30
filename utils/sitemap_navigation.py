@@ -1,7 +1,9 @@
+from core.extraction.article import Article
+from core.extraction.category import Category
 from core.extraction.sitemap import SiteMap
 
 
-def find_page_by_id(site_map: SiteMap, suffix_number: int):
+def find_page_by_id(site_map: SiteMap, suffix_number: int) -> Article | Category | None:
     """
     Ищет статью или категорию в SiteMap, URL которой заканчивается на заданное число.
 
