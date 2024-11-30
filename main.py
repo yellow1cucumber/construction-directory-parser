@@ -1,15 +1,12 @@
-import json
-import pprint
-
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from pydantic import ValidationError
 
 from core.extraction.sitemap import SiteMap
 from core.extraction.sitemapExtractor import ExtractorOptions
-from core.parsing.articleProcessor import ArticleProcessor
 from core.parsing.content_parser import ContentParser
 from serialization.json_provider import CustomJSONProvider
+from server.init_state import InitConfiguration
 from server.state import ServerState
 from utils.sitemap_loading import (import_sitemap_from_json_file,
                                    request_sitemap_and_export)
@@ -21,7 +18,13 @@ if __name__ == '__main__':
 
     CORS(app)
 
-    state: ServerState = ServerState()
+    state: ServerState
+
+    config_path = InitConfiguration.find_config_path()
+    if config_path:
+        state = InitConfiguration.serialize_from_file(config_path)
+    else:
+        state = ServerState()
 
 
     @app.route('/sitemap/set_extractor_options', methods=['POST'])
