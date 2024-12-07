@@ -1,5 +1,4 @@
 /data/
-**.iml
 .idea
 .venv
 extraction.json
