@@ -8,7 +8,8 @@ from pydantic import BaseModel
 
 from server.controllers.controller_base import BaseController
 from server.init_state import InitConfiguration
-from server.state import ServerState
+
+from server.state import ServerStateProvider
 
 
 class RunSettings(BaseModel):
@@ -35,7 +36,7 @@ class RunSettings(BaseModel):
 
 class Startup:
     app: Flask
-    state: ServerState
+    state_provider: ServerStateProvider
     controllers: List[BaseController] = []
 
     def init_server(self, name: str = "") -> None:
@@ -50,16 +51,18 @@ class Startup:
         """
         config_path = InitConfiguration.find_config_path()
         if config_path:
-            self.state = InitConfiguration.serialize_from_file(config_path)
+            self.state_provider.update_state(InitConfiguration.serialize_from_file(config_path))
             return
-        self.state = ServerState()
+        self.state_provider = ServerStateProvider()
 
-    def init_cors_dev(self, origins: List[str] = ["*"]) -> None:
+    def init_cors_dev(self, origins=None) -> None:
         """
         Initializes CORS for the development environment.
 
         :param origins: List of allowed origins. Defaults to all origins.
         """
+        if origins is None:
+            origins = ["*"]
         CORS(self.app, resources={r"/*": {"origins": origins}})
 
     def add_controller(self, controller_type: Type[BaseController]) -> None:
@@ -72,7 +75,7 @@ class Startup:
         if not issubclass(controller_type, BaseController):
             raise TypeError(f"{controller_type.__name__} is not a subclass of {BaseController.__name__}")
 
-        self.controllers.append(controller_type(self.app, self.state))
+        self.controllers.append(controller_type(self.app, self.state_provider))
 
     def add_controllers(self, *controller_types: Type[BaseController]) -> None:
         """

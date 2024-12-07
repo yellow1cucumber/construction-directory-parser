@@ -1,21 +1,21 @@
-from requests import request
-
 from flask import Flask, jsonify, request
 from pydantic import ValidationError
 
-from server.state import ServerState
+from reactivex import Observable
+
+from server.state import ServerState, ServerStateProvider
 from server.controllers.controller_base import BaseController
 
 
 class StateController(BaseController):
-    def __init__(self, app: Flask, state: ServerState):
+    def __init__(self, app: Flask, state_provider: ServerStateProvider):
         """
         Initializes the StateController.
 
         :param app: Flask application where the endpoints will be registered.
-        :param state: Current state of the server.
+        :param state_provider: Reactive state provider.
         """
-        super().__init__(app, state)
+        super().__init__(app, state_provider)
 
     def init_endpoints(self):
         """
@@ -34,7 +34,7 @@ class StateController(BaseController):
 
         :return: JSON response with the serialized server state.
         """
-        return jsonify(self.state.model_dump())  # Use model_dump if state supports it
+        return jsonify(self._state.model_dump())  # Use model_dump if state supports it
 
     def import_state(self):
         """
@@ -54,7 +54,9 @@ class StateController(BaseController):
             return jsonify({'error': 'Invalid or missing JSON data'}), 400
 
         try:
-            self.state = ServerState(**state_data)
+            new_state = ServerState(**state_data)
+            self._state_provider.update_state(new_state)
+
             return jsonify({'message': 'State imported successfully'}), 200
         except ValidationError as e:
             return jsonify({'error': e.errors()}), 400

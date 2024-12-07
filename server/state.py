@@ -1,4 +1,7 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
+
+from reactivex import Observable
+from reactivex.subject import BehaviorSubject
 
 from core.extraction.sitemap import SiteMap
 from core.extraction.sitemapExtractor import ExtractorOptions
@@ -15,12 +18,15 @@ class ServerState(BaseModel):
     default_parsed_data_dir: str = 'data'
     parsed_data_dir: str | None = default_parsed_data_dir
 
-    def update(self, new_data: dict):
-        """
-        Update the state with new data.
 
-        :param new_data: Dictionary of new state values.
-        """
-        for key, value in new_data.items():
-            if key in self.__fields__:
-                setattr(self, key, value)
+class ServerStateProvider:
+    _server_state: BehaviorSubject[ServerState]
+
+    def __init__(self, init_state: ServerState = ServerState()):
+        self._server_state = BehaviorSubject(init_state)
+
+    def as_observable(self) -> Observable[ServerState]:
+        return self._server_state
+
+    def update_state(self, new_state: ServerState):
+        self._server_state.on_next(new_state)

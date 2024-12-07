@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from pydantic import ValidationError
 
-from server.state import ServerState
+from server.state import ServerStateProvider
 from server.controllers.controller_base import BaseController
 
 from core.extraction.sitemapExtractor import ExtractorOptions
@@ -14,14 +14,14 @@ from utils.sitemap_navigation import find_page_by_id
 
 
 class SitemapController(BaseController):
-    def __init__(self, app: Flask, state: ServerState):
+    def __init__(self, app: Flask, state_provider: ServerStateProvider):
         """
         Initializes the SitemapController.
 
         :param app: Flask application where the endpoints will be registered.
-        :param state: ServerState object containing the server's current configuration and sitemap data.
+        :param state_provider: Reactive state provider.
         """
-        super().__init__(app, state)
+        super().__init__(app, state_provider)
 
     def init_endpoints(self):
         """
@@ -63,7 +63,7 @@ class SitemapController(BaseController):
 
         try:
             extractor_options = ExtractorOptions(**options_data)
-            self.state.extractor_options = extractor_options
+            self._state.extractor_options = extractor_options
             return jsonify({
                 'message': 'Extractor options set successfully'
             }), 200
@@ -81,16 +81,16 @@ class SitemapController(BaseController):
 
         :return: JSON response with the exported sitemap.
         """
-        options = self.state.extractor_options
+        options = self._state.extractor_options
         if not options:
             return jsonify({'error': 'Extractor options is not set'}), 400
 
         sitemap = request_sitemap_and_export(
-            self.state.extractor_options,
-            self.state.default_sitemap_export_file
+            self._state.extractor_options,
+            self._state.default_sitemap_export_file
         )
-        self.state.sitemap = sitemap
-        self.state.extraction_file = self.state.default_sitemap_export_file
+        self._state.sitemap = sitemap
+        self._state.extraction_file = self._state.default_sitemap_export_file
 
         return jsonify(sitemap), 200
 
@@ -102,7 +102,7 @@ class SitemapController(BaseController):
 
         :return: JSON response with the sitemap or an error message.
         """
-        sitemap = self.state.sitemap
+        sitemap = self._state.sitemap
 
         if not sitemap:
             return jsonify({'error': 'Sitemap is not set'}), 400
@@ -119,7 +119,10 @@ class SitemapController(BaseController):
         :param page_id: The ID of the page to retrieve content for.
         :return: JSON response with the page content or an error message.
         """
-        sitemap: SiteMap = self.state.sitemap
+        sitemap = self._state.sitemap
+        if not isinstance(sitemap, SiteMap):
+            return jsonify({'error': 'Invalid sitemap format'}), 500
+
         if not sitemap:
             return jsonify({'error': 'Sitemap is not set'}), 400
 
@@ -129,7 +132,7 @@ class SitemapController(BaseController):
             return jsonify({'error': f"There is no page with id == {page_id}"}), 404
 
         try:
-            parser = ContentParser(page.url, self.state.pages_content_container_selector)
+            parser = ContentParser(page.url, self._state.pages_content_container_selector)
             result = parser.parse()
             return jsonify(result), 200
         except Exception as e:
