@@ -97,7 +97,7 @@ class Startup:
         """
         config_path = InitConfiguration.find_config_path()
         if config_path:
-            self.state_provider.update_state(InitConfiguration.serialize_from_file(config_path))
+            self.state_provider = ServerStateProvider(InitConfiguration.serialize_from_file(config_path))
         else:
             self.state_provider = ServerStateProvider()
         return self

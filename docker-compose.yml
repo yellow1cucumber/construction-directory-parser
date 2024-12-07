@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./init_configuration:/backend/init/default_state.json
+      - ./default_state.json:/backend/init/default_state.json
     environment:
       - CONFIG_PATH=/backend/init/default_state.json
     ports:
