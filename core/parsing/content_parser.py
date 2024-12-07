@@ -1,10 +1,8 @@
-import os
 import re
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 from typing import List
 
-from pydantic import BaseModel
 
 from core.parsing.contentElement import ContentElement
 from core.parsing.pageContent import PageContent
@@ -39,36 +37,35 @@ class ContentParser:
         """Checks if a given text matches the subheading pattern."""
         return bool(self.subheading_pattern.match(text))
 
-    def process_table_of_contents(self, table):
-        """Processes the table of contents, extracting images and links."""
-        # Process images in the table
-        for img in table.find_all('img'):
-            src = img.get('src', '')
-            if src:
-                self.content_elements.append(ContentElement(
-                    type='image',
-                    content=src,
-                    attributes={
-                        'alt': img.get('alt', ''),
-                        'title': img.get('title', ''),
-                        'width': img.get('width', ''),
-                        'height': img.get('height', '')
-                    }
-                ))
-        # Process links in the table
-        for link in table.find_all('a'):
-            href = link.get('href', '')
-            text = self.get_text_content(link)
-            if href and text:
-                self.content_elements.append(ContentElement(
-                    type='link',
-                    content=href,
-                    attributes={
-                        'text': text,
-                        'title': link.get('title', ''),
-                        'target': link.get('target', '')
-                    }
-                ))
+
+    def process_table_of_contents(self, table: Tag):
+        """Processes the table of contents, extracting data and links."""
+        if table.select_one('a'):
+            for link in table.find_all('a'):
+                href = link.get('href', '')
+                text = self.get_text_content(link)
+                if href and text:
+                    self.content_elements.append(ContentElement(
+                        type='link',
+                        content=href,
+                        attributes={
+                            'text': text,
+                            'title': link.get('title', ''),
+                            'target': link.get('target', '')
+                        }
+                    ))
+            return
+
+        self.content_elements.append(
+            ContentElement(
+                type='table',
+                content='',
+                attributes={
+                    'html': table.prettify()
+                }
+            )
+        )
+
 
     def process_heading(self, text):
         """Processes text to determine if it's a subheading or a paragraph."""

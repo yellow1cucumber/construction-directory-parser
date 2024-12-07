@@ -1,0 +1,11 @@
+services:
+  flask-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./init_configuration:/backend/init/default_state.json
+    environment:
+      - CONFIG_PATH=/backend/init/default_state.json
+    ports:
+      - "5000:5000"
