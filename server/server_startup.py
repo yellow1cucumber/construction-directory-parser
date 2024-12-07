@@ -35,69 +35,140 @@ class RunSettings(BaseModel):
 
 
 class Startup:
+    """
+    A class for managing the initialization and configuration of a Flask application.
+    Implements a fluent API for chaining method calls to streamline server setup.
+
+    Attributes:
+        app (Flask): The Flask application instance.
+        state_provider (ServerStateProvider): The provider for managing server state.
+        controllers (List[BaseController]): A list of registered controllers for the application.
+
+    Methods:
+        init_server(name: str = "") -> "Startup":
+            Initializes the Flask application with the given name.
+
+        init_state() -> "Startup":
+            Initializes the server state by loading configuration or creating a new state provider.
+
+        init_cors_dev(origins=None) -> "Startup":
+            Configures Cross-Origin Resource Sharing (CORS) for the development environment.
+
+        add_controller(controller_type: Type[BaseController]) -> "Startup":
+            Adds a single controller to the application.
+
+        add_controllers(*controller_types: Type[BaseController]) -> "Startup":
+            Adds multiple controllers to the application.
+
+        init_controllers() -> "Startup":
+            Initializes all registered controllers by invoking their `init_endpoints` method.
+
+        add_json_provider(provider: DefaultJSONProvider) -> "Startup":
+            Sets a custom JSON provider for the Flask application.
+
+        run_app(settings: RunSettings = RunSettings.get_default_prod()) -> None:
+            Starts the Flask application with the specified run settings.
+    """
+
     app: Flask
     state_provider: ServerStateProvider
     controllers: List[BaseController] = []
 
-    def init_server(self, name: str = "") -> None:
+    def init_server(self, name: str = "") -> "Startup":
         """
         Initializes the Flask application.
+
+        Args:
+            name (str): The name of the Flask application. Defaults to an empty string.
+
+        Returns:
+            Startup: The current instance for method chaining.
         """
         self.app = Flask(name)
+        return self
 
-    def init_state(self) -> None:
+    def init_state(self) -> "Startup":
         """
         Initializes the server state by loading it from a configuration file if available.
+        If no configuration file is found, a new state provider is created.
+
+        Returns:
+            Startup: The current instance for method chaining.
         """
         config_path = InitConfiguration.find_config_path()
         if config_path:
             self.state_provider.update_state(InitConfiguration.serialize_from_file(config_path))
-            return
-        self.state_provider = ServerStateProvider()
+        else:
+            self.state_provider = ServerStateProvider()
+        return self
 
-    def init_cors_dev(self, origins=None) -> None:
+    def init_cors_dev(self, origins=None) -> "Startup":
         """
-        Initializes CORS for the development environment.
+        Configures Cross-Origin Resource Sharing (CORS) for the development environment.
 
-        :param origins: List of allowed origins. Defaults to all origins.
+        Args:
+            origins (list): A list of allowed origins. Defaults to allowing all origins.
+
+        Returns:
+            Startup: The current instance for method chaining.
         """
         if origins is None:
             origins = ["*"]
         CORS(self.app, resources={r"/*": {"origins": origins}})
+        return self
 
-    def add_controller(self, controller_type: Type[BaseController]) -> None:
+    def add_controller(self, controller_type: Type[BaseController]) -> "Startup":
         """
-        Adds a controller to the application.
+        Adds a single controller to the application.
 
-        :param controller_type: The controller class to add.
-        :raises TypeError: If the class is not a subclass of BaseController.
+        Args:
+            controller_type (Type[BaseController]): The controller class to add.
+
+        Raises:
+            TypeError: If the provided class is not a subclass of `BaseController`.
+
+        Returns:
+            Startup: The current instance for method chaining.
         """
         if not issubclass(controller_type, BaseController):
             raise TypeError(f"{controller_type.__name__} is not a subclass of {BaseController.__name__}")
-
         self.controllers.append(controller_type(self.app, self.state_provider))
+        return self
 
-    def add_controllers(self, *controller_types: Type[BaseController]) -> None:
+    def add_controllers(self, *controller_types: Type[BaseController]) -> "Startup":
         """
         Adds multiple controllers to the application.
 
-        :param controller_types: Controller classes to add.
+        Args:
+            controller_types (Type[BaseController]): Controller classes to add.
+
+        Returns:
+            Startup: The current instance for method chaining.
         """
         for controller_type in controller_types:
             self.add_controller(controller_type)
+        return self
 
-    def init_controllers(self) -> None:
+    def init_controllers(self) -> "Startup":
         """
-        Initializes all registered controllers by calling their init_endpoints method.
+        Initializes all registered controllers by invoking their `init_endpoints` method.
+
+        Returns:
+            Startup: The current instance for method chaining.
         """
         for controller in self.controllers:
             controller.init_endpoints()
+        return self
 
     def run_app(self, settings: RunSettings = RunSettings.get_default_prod()) -> None:
         """
-        Runs the Flask application with the specified settings.
+        Starts the Flask application with the specified run settings.
 
-        :param settings: RunSettings object with host, port, and debug configuration.
+        Args:
+            settings (RunSettings): The settings for running the application (host, port, debug).
+
+        Returns:
+            None
         """
         self.app.run(
             host=settings.host,
@@ -105,10 +176,17 @@ class Startup:
             debug=settings.debug,
         )
 
-    def add_json_provider(self, provider: DefaultJSONProvider) -> None:
+    def add_json_provider(self, provider: DefaultJSONProvider) -> "Startup":
         """
-        Adds a custom JSON provider to the Flask application.
+        Sets a custom JSON provider for the Flask application.
 
-        :param provider: The custom JSON provider class.
+        Args:
+            provider (DefaultJSONProvider): The custom JSON provider to use.
+
+        Returns:
+            Startup: The current instance for method chaining.
         """
         self.app.json = provider
+        return self
+
+
