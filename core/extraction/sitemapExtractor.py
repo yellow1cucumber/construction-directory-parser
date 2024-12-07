@@ -13,107 +13,156 @@ from core.extraction.sitemap import SiteMap
 
 class ExtractorOptions(BaseModel):
     """
-    Модель для хранения настроек парсера.
+    A model to store parser settings.
+
+    Attributes:
+        root_url (str): The root URL to start parsing from.
+        excluded_urls (list[str]): A list of URLs to exclude from parsing.
+        category_tag (str): The HTML tag used to identify categories.
+        category_selectors (List[str]): CSS selectors used to locate categories.
+        article_tag (str): The HTML tag used to identify articles.
+        article_selectors (List[str]): CSS selectors used to locate articles.
     """
-    root_url: str  # Корневой URL для начала обхода
-    excluded_urls: list[str]  # Список URL, которые нужно игнорировать
-    category_tag: str  # HTML-тег для категорий
-    category_selectors: List[str]  # Список CSS-селекторов для категорий
-    article_tag: str  # HTML-тег для статей
-    article_selectors: List[str]  # Список CSS-селекторов для статей
+    root_url: str
+    excluded_urls: list[str]
+    category_tag: str
+    category_selectors: List[str]
+    article_tag: str
+    article_selectors: List[str]
 
 
 class SiteMapExtractor:
     """
-    Класс для извлечения карты сайта.
+    A class to extract a website's sitemap structure.
+
+    Methods:
+        __init__(options: ExtractorOptions):
+            Initializes the extractor with the specified options.
+
+        extract_categories_recursive(url=None, parent=None, visited=None) -> List[Category]:
+            Recursively extracts categories and subcategories from the given URL.
+
+        extract_articles(soup: BeautifulSoup, url: str) -> List[Article]:
+            Extracts articles from the provided URL.
+
+        extract_site_map() -> SiteMap:
+            Creates and returns a `SiteMap` object.
+
+        extract_and_export_results(filename: str):
+            Extracts the sitemap and exports it to a file.
+
+        export_results(site_map: SiteMap, filename: str):
+            Exports a `SiteMap` object to a file.
+
+        load_site_map_from_json(filename: str) -> SiteMap:
+            Loads a sitemap from a JSON file and returns a `SiteMap` object.
+
+        _dict_to_sitemap(data: dict) -> SiteMap:
+            Converts a dictionary to a `SiteMap` object.
+
+        _dict_to_category(data: dict) -> Category:
+            Converts a dictionary to a `Category` object.
+
+        _dict_to_article(data: dict) -> Article:
+            Converts a dictionary to an `Article` object.
     """
     def __init__(self, options: ExtractorOptions):
         """
-        Инициализация экстрактора с заданными настройками.
+        Initializes the extractor with the specified options.
+
+        Args:
+            options (ExtractorOptions): The options for parsing.
         """
         self.options = options
 
     def extract_categories_recursive(self, url=None, parent: Category = None, visited=None) -> List[Category]:
         """
-        Рекурсивно извлекает категории и подкатегории с указанного URL.
+        Recursively extracts categories and subcategories from the given URL.
+
+        Args:
+            url (str, optional): The URL to start extraction. Defaults to the root URL.
+            parent (Category, optional): The parent category for nesting subcategories.
+            visited (set, optional): A set of visited URLs to avoid cycles.
+
+        Returns:
+            List[Category]: A list of extracted categories.
         """
         if url is None:
-            url = self.options.root_url  # Используем корневой URL, если текущий не указан
+            url = self.options.root_url
 
-        excluded_urls = self.options.excluded_urls  # Ссылки, которые нужно игнорировать
-        category_tag = self.options.category_tag
-        category_selectors = self.options.category_selectors
-
-        # Выполняем запрос к странице
         response = requests.get(url)
         response.raise_for_status()
 
-        soup = BeautifulSoup(response.text, 'html.parser')  # Парсим HTML-страницу
-        categories: list[Category] = []  # Список категорий
+        soup = BeautifulSoup(response.text, 'html.parser')
+        categories: list[Category] = []
 
-        # Перебираем все заданные селекторы для категорий
-        for selector in category_selectors:
-            compiled_selector = f"{category_tag}.{selector}"
+        for selector in self.options.category_selectors:
+            compiled_selector = f"{self.options.category_tag}.{selector}"
             for category in soup.select(compiled_selector):
-                sub_url = urljoin(url, category['href'])  # Преобразуем относительные пути в абсолютные
+                sub_url = urljoin(url, category['href'])
 
-                if sub_url in excluded_urls:
-                    continue  # Пропускаем ссылки из списка исключений
+                if sub_url in self.options.excluded_urls:
+                    continue
 
-                name = category.text.strip()  # Извлекаем текст категории
-                articles = self.extract_articles(soup, sub_url)  # Извлекаем статьи для категории
+                name = category.text.strip()
+                articles = self.extract_articles(soup, sub_url)
+                parsed_category = Category(name=name, url=sub_url, subcategories=[], articles=articles)
 
-                # Создаём объект категории
-                parsed_category = Category(name=name, url=sub_url, subcategories=[], articles=[])
-
-                # Рекурсивно извлекаем подкатегории
                 subcategories = self.extract_categories_recursive(url=sub_url, parent=parsed_category, visited=visited)
                 parsed_category.subcategories = subcategories
 
-                # Проверяем, добавлена ли уже такая категория
                 if not any(cat.url == sub_url for cat in categories):
                     categories.append(parsed_category)
 
-        if not categories:  # Если категорий не найдено, извлекаем статьи
+        if not categories and parent:
             articles = self.extract_articles(soup, url)
-            if articles and parent:
-                parent.articles.extend(articles)  # Добавляем статьи в родительскую категорию
+            parent.articles.extend(articles)
+
         return categories
 
     def extract_articles(self, soup: BeautifulSoup, url: str) -> List[Article]:
         """
-        Извлекает статьи с указанного URL.
-        """
-        article_tag = self.options.article_tag
-        article_selectors = self.options.article_selectors
+        Extracts articles from the provided URL.
 
+        Args:
+            soup (BeautifulSoup): The parsed HTML content of the page.
+            url (str): The URL of the page being parsed.
+
+        Returns:
+            List[Article]: A list of extracted articles.
+        """
         articles = []
-        # Перебираем все заданные селекторы для статей
-        for selector in article_selectors:
-            compiled_selector = f"{article_tag}.{selector}"
+        for selector in self.options.article_selectors:
+            compiled_selector = f"{self.options.article_tag}.{selector}"
             for article in soup.select(compiled_selector):
-                article_url = urljoin(url, article['href'])  # Преобразуем относительный путь в абсолютный
+                article_url = urljoin(url, article['href'])
 
                 if article_url in self.options.excluded_urls:
-                    continue  # Пропускаем ссылки из списка исключений
+                    continue
 
-                # Извлекаем заголовок статьи
-                article_title = article.select_one('.title').text.strip().replace('\n', ' ').replace('\r', '') \
+                article_title = (
+                    article.select_one('.title').text.strip()
                     if article.select_one('.title') else "Untitled"
-
+                )
                 articles.append(Article(title=article_title, url=article_url))
         return articles
 
     def extract_site_map(self) -> SiteMap:
         """
-        Создаёт и возвращает объект SiteMap.
+        Creates and returns a `SiteMap` object.
+
+        Returns:
+            SiteMap: The extracted sitemap.
         """
-        categories = self.extract_categories_recursive()  # Извлекаем все категории
+        categories = self.extract_categories_recursive()
         return SiteMap(root_url=self.options.root_url, categories=categories)
 
     def extract_and_export_results(self, filename: str):
         """
-        Извлекает карту сайта и экспортирует её в файл.
+        Extracts the sitemap and exports it to a file.
+
+        Args:
+            filename (str): The path to the file where the sitemap will be saved.
         """
         site_map = self.extract_site_map()
         with open(filename, 'w', encoding='utf-8') as file:
@@ -121,14 +170,24 @@ class SiteMapExtractor:
 
     def export_results(self, site_map: SiteMap, filename: str):
         """
-        Экспортирует объект SiteMap в файл.
+        Exports a `SiteMap` object to a file.
+
+        Args:
+            site_map (SiteMap): The sitemap to export.
+            filename (str): The path to the file where the sitemap will be saved.
         """
         with open(filename, 'w', encoding='utf-8') as file:
             json.dump(site_map, file, indent=4, ensure_ascii=False, default=lambda o: o.__dict__)
 
     def load_site_map_from_json(self, filename: str) -> SiteMap:
         """
-        Загружает карту сайта из JSON-файла и восстанавливает объект SiteMap.
+        Loads a sitemap from a JSON file.
+
+        Args:
+            filename (str): The path to the JSON file containing the sitemap.
+
+        Returns:
+            SiteMap: The loaded sitemap object.
         """
         with open(filename, 'r', encoding='utf-8') as file:
             data = json.load(file)
@@ -137,7 +196,13 @@ class SiteMapExtractor:
 
     def _dict_to_sitemap(self, data: dict) -> SiteMap:
         """
-        Преобразует словарь в объект SiteMap.
+        Converts a dictionary to a `SiteMap` object.
+
+        Args:
+            data (dict): The dictionary representation of a sitemap.
+
+        Returns:
+            SiteMap: The reconstructed `SiteMap` object.
         """
         root_url = data['root_url']
         categories = [self._dict_to_category(category) for category in data['categories']]
@@ -145,7 +210,13 @@ class SiteMapExtractor:
 
     def _dict_to_category(self, data: dict) -> Category:
         """
-        Преобразует словарь в объект Category.
+        Converts a dictionary to a `Category` object.
+
+        Args:
+            data (dict): The dictionary representation of a category.
+
+        Returns:
+            Category: The reconstructed `Category` object.
         """
         name = data['name']
         url = data['url']
@@ -155,7 +226,13 @@ class SiteMapExtractor:
 
     def _dict_to_article(self, data: dict) -> Article:
         """
-        Преобразует словарь в объект Article.
+        Converts a dictionary to an `Article` object.
+
+        Args:
+            data (dict): The dictionary representation of an article.
+
+        Returns:
+            Article: The reconstructed `Article` object.
         """
         title = data['title']
         url = data['url']

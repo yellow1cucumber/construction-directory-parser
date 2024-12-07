@@ -2,44 +2,86 @@ import re
 import requests
 from bs4 import BeautifulSoup, Tag
 from typing import List
-
-
 from core.parsing.contentElement import ContentElement
 from core.parsing.pageContent import PageContent
 
 
-# Define the ContentParser class
 class ContentParser:
+    """
+    A class for parsing and extracting structured content from a web page.
+
+    Attributes:
+        url (str): The URL of the web page to parse.
+        html_content (str): The raw HTML content of the web page.
+        soup (BeautifulSoup): The parsed HTML content.
+        container_selector (str): The CSS selector for the main content container.
+        content_elements (List[ContentElement]): A list of extracted content elements.
+        subheading_pattern (Pattern): A regex pattern to identify subheadings.
+    """
+
     def __init__(self, url: str, container_selector: str):
+        """
+        Initializes the ContentParser with a URL and container selector.
+
+        Args:
+            url (str): The URL of the page to parse.
+            container_selector (str): The CSS selector for the content container.
+        """
         self.url = url
         self.html_content = ''
         self.soup = None
         self.container_selector = container_selector
         self.content_elements: List[ContentElement] = []
-        # Regular expression for subheadings
         self.subheading_pattern = re.compile(r'^\s*\d+(\.\d+)*\.\s+.+')
 
     def fetch_content(self):
-        """Fetches HTML content from the URL."""
+        """
+        Fetches the raw HTML content from the URL.
+
+        Raises:
+            HTTPError: If the HTTP request fails.
+        """
         response = requests.get(self.url)
         response.raise_for_status()
         self.html_content = response.text
 
     def parse_html(self):
-        """Parses the HTML content using BeautifulSoup."""
+        """
+        Parses the fetched HTML content using BeautifulSoup.
+        """
         self.soup = BeautifulSoup(self.html_content, 'html.parser')
 
     def get_text_content(self, element):
-        """Extracts text content from an HTML element."""
+        """
+        Extracts text content from an HTML element.
+
+        Args:
+            element (Tag): The HTML element to extract text from.
+
+        Returns:
+            str: The stripped text content of the element.
+        """
         return ' '.join(element.stripped_strings).strip()
 
     def is_subheading(self, text):
-        """Checks if a given text matches the subheading pattern."""
+        """
+        Determines if a given text matches the subheading pattern.
+
+        Args:
+            text (str): The text to evaluate.
+
+        Returns:
+            bool: True if the text matches the subheading pattern, False otherwise.
+        """
         return bool(self.subheading_pattern.match(text))
 
-
     def process_table_of_contents(self, table: Tag):
-        """Processes the table of contents, extracting data and links."""
+        """
+        Processes a table element, extracting links or adding it as raw HTML.
+
+        Args:
+            table (Tag): The table element to process.
+        """
         if table.select_one('a'):
             for link in table.find_all('a'):
                 href = link.get('href', '')
@@ -54,25 +96,21 @@ class ContentParser:
                             'target': link.get('target', '')
                         }
                     ))
-            return
-
-        self.content_elements.append(
-            ContentElement(
+        else:
+            self.content_elements.append(ContentElement(
                 type='table',
                 content='',
-                attributes={
-                    'html': table.prettify()
-                }
-            )
-        )
-
+                attributes={'html': table.prettify()}
+            ))
 
     def process_heading(self, text):
-        """Processes text to determine if it's a subheading or a paragraph."""
-        if self.is_subheading(text):
-            content_type = 'subheading'
-        else:
-            content_type = 'paragraph'
+        """
+        Processes text as either a subheading or a paragraph.
+
+        Args:
+            text (str): The text to process.
+        """
+        content_type = 'subheading' if self.is_subheading(text) else 'paragraph'
         self.content_elements.append(ContentElement(
             type=content_type,
             content=text,
@@ -80,18 +118,20 @@ class ContentParser:
         ))
 
     def parse_container(self):
-        """Parses the main content container and extracts elements."""
+        """
+        Parses the main content container and extracts elements.
+
+        Raises:
+            ValueError: If the container cannot be found using the selector.
+        """
         container = self.soup.select_one(self.container_selector)
         if not container:
             raise ValueError(f"Container with selector '{self.container_selector}' not found.")
 
-        # Iterate over the immediate children of the container
         for element in container.find_all(recursive=False):
             if element.name == 'table':
-                # Process table of contents
                 self.process_table_of_contents(element)
             elif element.name in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
-                # Process headings
                 text = self.get_text_content(element)
                 if text:
                     self.content_elements.append(ContentElement(
@@ -100,12 +140,10 @@ class ContentParser:
                         attributes={'level': element.name}
                     ))
             elif element.name == 'p':
-                # Process paragraphs and subheadings
                 text = self.get_text_content(element)
                 if text:
                     self.process_heading(text)
             elif element.name == 'img':
-                # Process images outside tables
                 src = element.get('src', '')
                 if src:
                     self.content_elements.append(ContentElement(
@@ -118,15 +156,15 @@ class ContentParser:
                             'height': element.get('height', '')
                         }
                     ))
-            else:
-                # Process other elements if necessary
-                pass
 
     def parse(self):
-        """Main method to fetch, parse, and extract content elements."""
+        """
+        Main method to fetch, parse, and extract content elements.
+
+        Returns:
+            PageContent: The parsed content as a structured `PageContent` object.
+        """
         self.fetch_content()
         self.parse_html()
         self.parse_container()
-        # Create PageContent instance
-        page_content = PageContent(elements=self.content_elements)
-        return page_content
+        return PageContent(elements=self.content_elements)
