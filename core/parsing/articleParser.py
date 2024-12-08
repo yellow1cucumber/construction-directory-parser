@@ -6,9 +6,9 @@ from core.extraction.article import Article
 from core.parsing.content_parser import ContentParser
 
 
-class ArticleProcessor:
+class ArticleParser:
     """
-    Processes articles and categories from a `SiteMap` object and exports the data to a specified directory.
+    Parses articles and categories from a `SiteMap` object and exports the data to a specified directory.
 
     Attributes:
         root_url (str): The root URL of the site being processed.
@@ -16,13 +16,13 @@ class ArticleProcessor:
 
     Methods:
         process(export_dir: str):
-            Processes all categories and articles and saves the data to the specified directory.
+            Parse all categories and articles and saves the data to the specified directory.
 
         process_category(category: Category, parent_path: Path):
-            Recursively processes a category and its subcategories, exporting their data.
+            Recursively parse a category and its subcategories, exporting their data.
 
         process_article(article: Article, save_path: Path):
-            Processes an individual article, parsing its content and saving it as a JSON file.
+            Parse an individual article, parsing its content and saving it as a JSON file.
 
         sanitize_filename(name: str) -> str:
             Sanitizes a string to make it safe for use as a file name.
@@ -33,7 +33,7 @@ class ArticleProcessor:
 
     def __init__(self, site_map: SiteMap):
         """
-        Initializes the ArticleProcessor with a `SiteMap` object.
+        Initializes the ArticleParser with a `SiteMap` object.
 
         Args:
             site_map (SiteMap): The sitemap containing the root URL and categories to process.
@@ -43,7 +43,7 @@ class ArticleProcessor:
 
     def process(self, export_dir: str):
         """
-        Processes all categories and articles in the sitemap, saving them to the specified directory.
+        Parses all categories and articles in the sitemap, saving them to the specified directory.
 
         Args:
             export_dir (str): The directory where processed data will be saved.
@@ -54,7 +54,7 @@ class ArticleProcessor:
 
     def process_category(self, category: Category, parent_path: Path):
         """
-        Recursively processes a category and its subcategories, exporting their data to the directory.
+        Recursively parses a category and its subcategories, exporting their data to the directory.
 
         Args:
             category (Category): The category to process.
@@ -82,7 +82,7 @@ class ArticleProcessor:
 
     def process_article(self, article: Article, save_path: Path):
         """
-        Processes an individual article, parsing its content and saving it as a JSON file.
+        Parse an individual article, parsing its content and saving it as a JSON file.
 
         Args:
             article (Article): The article to process.
