@@ -29,7 +29,7 @@ class ContentParser:
         """
         self.url = url
         self.html_content = ''
-        self.soup = None
+        self.soup: BeautifulSoup | None = None
         self.container_selector = container_selector
         self.content_elements: List[ContentElement] = []
         self.subheading_pattern = re.compile(r'^\s*\d+(\.\d+)*\.\s+.+')
@@ -50,6 +50,16 @@ class ContentParser:
         Parses the fetched HTML content using BeautifulSoup.
         """
         self.soup = BeautifulSoup(self.html_content, 'html.parser')
+
+    def parse_and_get_pure_html(self) -> str:
+        """
+        Parse and return pure html from container
+        """
+        if not self.soup:
+            self.fetch_content()
+            self.parse_html()
+
+        return self.soup.prettify()
 
     def get_text_content(self, element):
         """

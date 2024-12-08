@@ -1,8 +1,10 @@
 from pathlib import Path
 from pydantic import BaseModel
+
 from core.sitemap_extraction.category import Category
 from core.sitemap_extraction.sitemap import SiteMap
 from core.sitemap_extraction.article import Article
+
 from core.content_parsing.content_parser import ContentParser
 
 
@@ -97,6 +99,7 @@ class ArticleParser:
         # Parse the article's content
         try:
             parser = ContentParser(article_url, 'div.page_text')
+            article.html = parser.parse_and_get_pure_html()
             page_content = parser.parse()
         except Exception as e:
             raise ValueError(f"Container with selector 'page_text' not found by url= {article_url}")
