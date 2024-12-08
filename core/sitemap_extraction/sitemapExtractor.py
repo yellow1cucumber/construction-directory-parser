@@ -144,7 +144,7 @@ class SiteMapExtractor:
                     article.select_one('.title').text.strip()
                     if article.select_one('.title') else "Untitled"
                 )
-                articles.append(Article(title=article_title, url=article_url))
+                articles.append(Article(title=article_title, url=article_url, html=''))
         return articles
 
     def extract_site_map(self) -> SiteMap:
