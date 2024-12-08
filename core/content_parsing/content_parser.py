@@ -127,6 +127,12 @@ class ContentParser:
             attributes={}
         ))
 
+    def get_page_markup(self) -> str:
+        container = self.soup.select_one(self.container_selector)
+        if not container:
+            raise ValueError(f"Container with selector '{self.container_selector}' not found.")
+        return container.prettify()
+
     def parse_container(self):
         """
         Parses the main content container and extracts elements.
@@ -167,7 +173,7 @@ class ContentParser:
                         }
                     ))
 
-    def parse(self):
+    def parse(self, only_markup: bool = False) -> str | PageContent:
         """
         Main method to fetch, parse, and extract content elements.
 
@@ -176,5 +182,10 @@ class ContentParser:
         """
         self.fetch_content()
         self.parse_html()
+
+        if only_markup:
+            markup = self.get_page_markup()
+            return markup
+
         self.parse_container()
         return PageContent(elements=self.content_elements)
