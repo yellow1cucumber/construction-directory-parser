@@ -1,5 +1,5 @@
-from core.extraction.sitemapExtractor import SiteMapExtractor, ExtractorOptions
-from core.extraction.sitemap import SiteMap
+from core.sitemap_extraction.sitemapExtractor import SiteMapExtractor, ExtractorOptions
+from core.sitemap_extraction.sitemap import SiteMap
 
 
 def request_sitemap(options: ExtractorOptions) -> SiteMap:

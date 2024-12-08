@@ -2,8 +2,8 @@ import re
 import requests
 from bs4 import BeautifulSoup, Tag
 from typing import List
-from core.parsing.contentElement import ContentElement
-from core.parsing.pageContent import PageContent
+from core.content_parsing.contentElement import ContentElement
+from core.content_parsing.pageContent import PageContent
 
 
 class ContentParser:

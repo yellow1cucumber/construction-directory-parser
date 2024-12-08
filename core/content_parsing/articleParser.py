@@ -1,9 +1,9 @@
 from pathlib import Path
 from pydantic import BaseModel
-from core.extraction.category import Category
-from core.extraction.sitemap import SiteMap
-from core.extraction.article import Article
-from core.parsing.content_parser import ContentParser
+from core.sitemap_extraction.category import Category
+from core.sitemap_extraction.sitemap import SiteMap
+from core.sitemap_extraction.article import Article
+from core.content_parsing.content_parser import ContentParser
 
 
 class ArticleParser:

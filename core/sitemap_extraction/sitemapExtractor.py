@@ -6,9 +6,9 @@ import requests
 from bs4 import BeautifulSoup
 from pydantic import BaseModel
 
-from core.extraction.category import Category
-from core.extraction.article import Article
-from core.extraction.sitemap import SiteMap
+from core.sitemap_extraction.category import Category
+from core.sitemap_extraction.article import Article
+from core.sitemap_extraction.sitemap import SiteMap
 
 
 class ExtractorOptions(BaseModel):

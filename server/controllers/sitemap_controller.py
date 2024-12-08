@@ -4,10 +4,10 @@ from pydantic import ValidationError
 from server.state import ServerStateProvider
 from server.controllers.controller_base import BaseController
 
-from core.extraction.sitemapExtractor import ExtractorOptions
-from core.extraction.sitemap import SiteMap
+from core.sitemap_extraction.sitemapExtractor import ExtractorOptions
+from core.sitemap_extraction.sitemap import SiteMap
 
-from core.parsing.content_parser import ContentParser
+from core.content_parsing.content_parser import ContentParser
 
 from utils.sitemap_loading import request_sitemap_and_export
 from utils.sitemap_navigation import find_page_by_id
