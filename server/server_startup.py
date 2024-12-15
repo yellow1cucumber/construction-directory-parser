@@ -1,5 +1,7 @@
 from typing import List, Type
 
+from werkzeug.routing import BaseConverter
+
 from flask import Flask
 from flask.json.provider import DefaultJSONProvider
 from flask_cors import CORS
@@ -176,6 +178,7 @@ class Startup:
             debug=settings.debug,
         )
 
+
     def add_json_provider(self, provider: DefaultJSONProvider) -> "Startup":
         """
         Sets a custom JSON provider for the Flask application.
@@ -189,4 +192,5 @@ class Startup:
         self.app.json = provider
         return self
 
-
+    def add_url_converter(self, converter_type: Type):
+        self.app.url_map.converters['bool'] = converter_type
