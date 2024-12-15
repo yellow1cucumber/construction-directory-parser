@@ -9,6 +9,7 @@ from pydantic import BaseModel
 from core.sitemap_extraction.category import Category
 from core.sitemap_extraction.article import Article
 from core.sitemap_extraction.sitemap import SiteMap
+from utils.normalization import normalize_sitemap
 
 
 class ExtractorOptions(BaseModel):
@@ -155,7 +156,9 @@ class SiteMapExtractor:
             SiteMap: The extracted sitemap.
         """
         categories = self.extract_categories_recursive()
-        return SiteMap(root_url=self.options.root_url, categories=categories)
+        sitemap = SiteMap(root_url=self.options.root_url, categories=categories)
+        sitemap = normalize_sitemap(sitemap)
+        return sitemap
 
     def extract_and_export_results(self, filename: str):
         """
