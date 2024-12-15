@@ -6,9 +6,10 @@ import requests
 from bs4 import BeautifulSoup
 from pydantic import BaseModel
 
-from core.extraction.category import Category
-from core.extraction.article import Article
-from core.extraction.sitemap import SiteMap
+from core.sitemap_extraction.category import Category
+from core.sitemap_extraction.article import Article
+from core.sitemap_extraction.sitemap import SiteMap
+from utils.normalization import normalize_sitemap
 
 
 class ExtractorOptions(BaseModel):
@@ -144,7 +145,7 @@ class SiteMapExtractor:
                     article.select_one('.title').text.strip()
                     if article.select_one('.title') else "Untitled"
                 )
-                articles.append(Article(title=article_title, url=article_url))
+                articles.append(Article(title=article_title, url=article_url, html=''))
         return articles
 
     def extract_site_map(self) -> SiteMap:
@@ -155,7 +156,9 @@ class SiteMapExtractor:
             SiteMap: The extracted sitemap.
         """
         categories = self.extract_categories_recursive()
-        return SiteMap(root_url=self.options.root_url, categories=categories)
+        sitemap = SiteMap(root_url=self.options.root_url, categories=categories)
+        sitemap = normalize_sitemap(sitemap)
+        return sitemap
 
     def extract_and_export_results(self, filename: str):
         """

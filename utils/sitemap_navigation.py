@@ -1,6 +1,6 @@
-from core.extraction.article import Article
-from core.extraction.category import Category
-from core.extraction.sitemap import SiteMap
+from core.sitemap_extraction.article import Article
+from core.sitemap_extraction.category import Category
+from core.sitemap_extraction.sitemap import SiteMap
 
 
 def find_page_by_id(site_map: SiteMap, suffix_number: int) -> Article | Category | None:

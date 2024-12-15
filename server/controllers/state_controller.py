@@ -1,8 +1,6 @@
 from flask import Flask, jsonify, request
 from pydantic import ValidationError
 
-from reactivex import Observable
-
 from server.state import ServerState, ServerStateProvider
 from server.controllers.controller_base import BaseController
 

@@ -1,6 +1,6 @@
 from typing import List
 from pydantic import BaseModel
-from core.extraction.category import Category
+from core.sitemap_extraction.category import Category
 
 class SiteMap(BaseModel):
     """

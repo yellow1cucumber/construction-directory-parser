@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict
 from typing import List
-from core.parsing.contentElement import ContentElement
+from core.content_parsing.contentElement import ContentElement
 
 class PageContent(BaseModel):
     """

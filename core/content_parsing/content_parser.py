@@ -2,8 +2,8 @@ import re
 import requests
 from bs4 import BeautifulSoup, Tag
 from typing import List
-from core.parsing.contentElement import ContentElement
-from core.parsing.pageContent import PageContent
+from core.content_parsing.contentElement import ContentElement
+from core.content_parsing.pageContent import PageContent
 
 
 class ContentParser:
@@ -29,7 +29,7 @@ class ContentParser:
         """
         self.url = url
         self.html_content = ''
-        self.soup = None
+        self.soup: BeautifulSoup | None = None
         self.container_selector = container_selector
         self.content_elements: List[ContentElement] = []
         self.subheading_pattern = re.compile(r'^\s*\d+(\.\d+)*\.\s+.+')
@@ -50,6 +50,16 @@ class ContentParser:
         Parses the fetched HTML content using BeautifulSoup.
         """
         self.soup = BeautifulSoup(self.html_content, 'html.parser')
+
+    def parse_and_get_pure_html(self) -> str:
+        """
+        Parse and return pure html from container
+        """
+        if not self.soup:
+            self.fetch_content()
+            self.parse_html()
+
+        return self.soup.prettify()
 
     def get_text_content(self, element):
         """
@@ -117,6 +127,12 @@ class ContentParser:
             attributes={}
         ))
 
+    def get_page_markup(self) -> str:
+        container = self.soup.select_one(self.container_selector)
+        if not container:
+            raise ValueError(f"Container with selector '{self.container_selector}' not found.")
+        return container.prettify()
+
     def parse_container(self):
         """
         Parses the main content container and extracts elements.
@@ -157,7 +173,7 @@ class ContentParser:
                         }
                     ))
 
-    def parse(self):
+    def parse(self, only_markup: bool = False) -> str | PageContent:
         """
         Main method to fetch, parse, and extract content elements.
 
@@ -166,5 +182,10 @@ class ContentParser:
         """
         self.fetch_content()
         self.parse_html()
+
+        if only_markup:
+            markup = self.get_page_markup()
+            return markup
+
         self.parse_container()
         return PageContent(elements=self.content_elements)

@@ -4,10 +4,10 @@ from pydantic import ValidationError
 from server.state import ServerStateProvider
 from server.controllers.controller_base import BaseController
 
-from core.extraction.sitemapExtractor import ExtractorOptions
-from core.extraction.sitemap import SiteMap
+from core.sitemap_extraction.sitemapExtractor import ExtractorOptions
+from core.sitemap_extraction.sitemap import SiteMap
 
-from core.parsing.content_parser import ContentParser
+from core.content_parsing.content_parser import ContentParser
 
 from utils.sitemap_loading import request_sitemap_and_export
 from utils.sitemap_navigation import find_page_by_id
@@ -38,7 +38,7 @@ class SitemapController(BaseController):
             methods=['POST']
         )
         self._app.add_url_rule(
-            '/sitemap/get_page_content/<int:page_id>',
+            '/sitemap/get_page_content/<int:page_id>/<bool:markup>',
             view_func=self.get_page_content,
             methods=['GET']
         )
@@ -108,7 +108,7 @@ class SitemapController(BaseController):
             return jsonify({'error': 'Sitemap is not set'}), 400
         return jsonify(sitemap), 200
 
-    def get_page_content(self, page_id: int):
+    def get_page_content(self, page_id: int, markup: bool):
         """
         Retrieves the content of a page with the specified ID from the sitemap.
 
@@ -117,6 +117,7 @@ class SitemapController(BaseController):
         Returns HTTP 500 for any parsing errors.
 
         :param page_id: The ID of the page to retrieve content for.
+        :param markup: If markup is true, method extracts page with html markup from container, that defined in options
         :return: JSON response with the page content or an error message.
         """
         sitemap = self._state.sitemap
@@ -133,7 +134,7 @@ class SitemapController(BaseController):
 
         try:
             parser = ContentParser(page.url, self._state.pages_content_container_selector)
-            result = parser.parse()
+            result = parser.parse(only_markup=markup)
             return jsonify(result), 200
         except Exception as e:
             return jsonify({'error': str(e)}), 500

@@ -1,6 +1,6 @@
 from typing import List
 from pydantic import BaseModel
-from core.extraction.article import Article
+from core.sitemap_extraction.article import Article
 
 
 class Category(BaseModel):

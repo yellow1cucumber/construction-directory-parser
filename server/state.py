@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 from reactivex import Observable
 from reactivex.subject import BehaviorSubject
-from core.extraction.sitemap import SiteMap
-from core.extraction.sitemapExtractor import ExtractorOptions
+from core.sitemap_extraction.sitemap import SiteMap
+from core.sitemap_extraction.sitemapExtractor import ExtractorOptions
 
 
 class ServerState(BaseModel):
