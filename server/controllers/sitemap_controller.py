@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from pydantic import ValidationError
 
+from core.sitemap_extraction.category import Category
 from server.state import ServerStateProvider
 from server.controllers.controller_base import BaseController
 
@@ -46,6 +47,11 @@ class SitemapController(BaseController):
             '/sitemap/get_sitemap',
             view_func=self.get_sitemap,
             methods=['GET']
+        )
+        self._app.add_url_rule(
+            '/sitemap/fill_sitemap_with_html',
+            view_func=self.fill_sitemap_with_html,
+            methods=['POST']
         )
 
     def set_extractor_options(self):
@@ -138,3 +144,22 @@ class SitemapController(BaseController):
             return jsonify(result), 200
         except Exception as e:
             return jsonify({'error': str(e)}), 500
+
+    def fill_sitemap_with_html(self):
+        if not self._state:
+            return jsonify({'error': 'State was not set'}), 400
+
+        if not self._state.sitemap:
+            return jsonify({'error': 'Sitemap is empty'}), 400
+
+        def process_category(target_category: Category):
+            for article in target_category.articles:
+                parser = ContentParser(article.url, self._state.pages_content_container_selector)
+                article.html = parser.parse(only_markup=True)
+            for subcategory in target_category.subcategories:
+                process_category(subcategory)
+
+        for category in self._state.sitemap.categories:
+            process_category(category)
+
+        return jsonify(self._state.sitemap), 200
