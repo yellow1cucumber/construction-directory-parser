@@ -1,8 +1,6 @@
-import base64
 import re
 import requests
 from typing import List
-import json
 
 from bs4 import BeautifulSoup, Tag
 
@@ -131,14 +129,12 @@ class ContentParser:
             attributes={}
         ))
 
-    def get_base64_encoded_page_markup(self) -> bytes:
+    def get_markup(self) -> str:
         container = self.soup.select_one(self.container_selector)
         if not container:
             raise ValueError(f"Container with selector '{self.container_selector}' not found.")
 
-        html_bites = container.prettify().encode('utf-8')
-        encoded_html = base64.b64encode(html_bites)
-        return encoded_html
+        return container.prettify()
 
 
     def parse_container(self):
@@ -181,7 +177,7 @@ class ContentParser:
                         }
                     ))
 
-    def parse(self, only_markup: bool = False) -> bytes | PageContent:
+    def parse(self, only_markup: bool = False) -> str | PageContent:
         """
         Main method to fetch, parse, and extract content elements.
 
@@ -192,7 +188,7 @@ class ContentParser:
         self.parse_html()
 
         if only_markup:
-            markup = self.get_base64_encoded_page_markup()
+            markup = self.get_markup()
             return markup
 
         self.parse_container()
