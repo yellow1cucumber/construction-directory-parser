@@ -9,6 +9,7 @@ from core.sitemap_extraction.sitemapExtractor import ExtractorOptions
 from core.sitemap_extraction.sitemap import SiteMap
 
 from core.content_parsing.content_parser import ContentParser
+from utils.sitemap_fs import save_sitemap_to_filesystem
 
 from utils.sitemap_loading import request_sitemap_and_export
 from utils.sitemap_navigation import find_page_by_id
@@ -112,6 +113,8 @@ class SitemapController(BaseController):
 
         if not sitemap:
             return jsonify({'error': 'Sitemap is not set'}), 400
+
+        save_sitemap_to_filesystem(self._state.sitemap, './sitemap_export')
         return jsonify(sitemap), 200
 
     def get_page_content(self, page_id: int, markup: bool):

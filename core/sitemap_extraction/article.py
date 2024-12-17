@@ -12,7 +12,7 @@ class Article(BaseModel):
 
     title: str
     url: str
-    html: str
+    html: str | bytes
 
     def __hash__(self):
         """
