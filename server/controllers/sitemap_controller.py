@@ -114,7 +114,6 @@ class SitemapController(BaseController):
         if not sitemap:
             return jsonify({'error': 'Sitemap is not set'}), 400
 
-        save_sitemap_to_filesystem(self._state.sitemap, './sitemap_export')
         return jsonify(sitemap), 200
 
     def get_page_content(self, page_id: int, markup: bool):
