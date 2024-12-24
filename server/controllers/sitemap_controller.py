@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_file
 from pydantic import ValidationError
 
 from core.sitemap_extraction.category import Category
@@ -9,7 +9,7 @@ from core.sitemap_extraction.sitemapExtractor import ExtractorOptions
 from core.sitemap_extraction.sitemap import SiteMap
 
 from core.content_parsing.content_parser import ContentParser
-from utils.sitemap_fs import save_sitemap_to_filesystem
+from utils.sitemap_fs import SiteMapFS
 
 from utils.sitemap_loading import request_sitemap_and_export
 from utils.sitemap_navigation import find_page_by_id
@@ -52,6 +52,11 @@ class SitemapController(BaseController):
         self._app.add_url_rule(
             '/sitemap/fill_sitemap_with_html',
             view_func=self.fill_sitemap_with_html,
+            methods=['POST']
+        )
+        self._app.add_url_rule(
+            '/sitemap/get_zipped_sitemap',
+            view_func=self.get_zipped_sitemap,
             methods=['POST']
         )
 
@@ -165,3 +170,15 @@ class SitemapController(BaseController):
             process_category(category)
 
         return jsonify(self._state.sitemap), 200
+
+    def get_zipped_sitemap(self):
+        if not self._state:
+            return jsonify({'error': 'State was not set'}), 400
+
+        if not self._state.sitemap:
+            return jsonify({'error': 'Sitemap is empty'}), 400
+
+        zipper = SiteMapFS(self._state.default_parsed_data_dir)
+        zipper.save_sitemap(self._state.sitemap)
+        zipper.save_as_zip(self._state.sitemap, 'extraction.7zip')
+        return send_file('extraction.7zip')
